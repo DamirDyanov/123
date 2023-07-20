@@ -7,11 +7,7 @@ def test1():
             browser = browser_type.launch()
             page = browser.new_page()
             page.goto('https://github.com/DamirDyanov?tab=repositories')
-            page.get_by_role("link", name="Sign in").click()
-            page.get_by_role("textbox", name="Username or email address").fill("damirdyanov@yandex.ru")
-            page.get_by_role("textbox", name="password").fill("damir2003)")
-            page.get_by_role("button", name="Sign in").click()
-            page.get_by_role("link", name="123").click()
+            page.get_by_role("link", name="first_test").click()
             page.get_by_role("link", name='Issues').click()
 
             page.locator("//a[@id='issue_2_link']").click()
