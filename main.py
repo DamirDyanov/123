@@ -7,12 +7,12 @@ def test1():
         for browser_type in [s.chromium]:
             browser = browser_type.launch()
             page = browser.new_page()
-            #locator = "//span[text()='123']"
             page.goto('https://github.com/DamirDyanov?tab=repositories')
             page.get_by_role("link", name="123").click()
             page.get_by_role("link", name='Issues').click()
             page.locator("//a[contains(text(),'Ошибка в первой строке')]").click()
-            page.locator("//div[@class='timeline-comment-header clearfix d-flex']").click()
+            locator = page.locator("//div[@class='js-issues-results js-socket-channel js-updatable-content']")
+            expect(locator).to_be_visible()
             page.screenshot(path=f'example-{browser_type.name}.png')
             browser.close()
 
