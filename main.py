@@ -1,6 +1,5 @@
 from playwright.sync_api import sync_playwright, expect
-import pytest
-import click
+
 
 def test1():
     with sync_playwright() as s:
@@ -8,12 +7,15 @@ def test1():
             browser = browser_type.launch()
             page = browser.new_page()
             page.goto('https://github.com/DamirDyanov?tab=repositories')
+            page.get_by_role("link", name="Sign in").click()
+            page.get_by_role("textbox", name="Username or email address").fill("damirdyanov@yandex.ru")
+            page.get_by_role("textbox", name="password").fill("damir2003)")
+            page.get_by_role("button", name="Sign in").click()
             page.get_by_role("link", name="123").click()
             page.get_by_role("link", name='Issues').click()
-            page.locator("//a[contains(text(),'Ошибка в первой строке')]").click()
+
+            page.locator("//a[@id='issue_2_link']").click()
             locator = page.locator("//div[@class='js-issues-results js-socket-channel js-updatable-content']")
             expect(locator).to_be_visible()
             page.screenshot(path=f'example-{browser_type.name}.png')
             browser.close()
-
-
